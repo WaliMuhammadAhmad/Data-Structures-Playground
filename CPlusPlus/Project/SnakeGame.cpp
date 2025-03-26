@@ -28,7 +28,7 @@ class Node
 public:
 	int xPosition, yPosition;
 	char symbol;
-	Node* nextNodeAddress;
+	Node *nextNodeAddress;
 
 	Node(char symbol = 'o', int xPos = 0, int yPos = 0)
 	{
@@ -39,15 +39,15 @@ public:
 	}
 };
 
-//Class Snake
+// Class Snake
 class Snake
 {
 private:
-	Node* head;
-	Node* body;
-	Node* fruit;
-	Node* front;
-	Node* rear;
+	Node *head;
+	Node *body;
+	Node *fruit;
+	Node *front;
+	Node *rear;
 	float snakeSpeed;
 	int bodyXPosition, bodyYPosition;
 	int headXPosition, headYPosition;
@@ -75,10 +75,10 @@ public:
 		score = 0;
 		fruitSymbol = '\242';
 	}
-	//Enqueue body
+	// Enqueue body
 	void enqueue(int xPos, int yPos)
 	{
-		Node* newNode = new Node();
+		Node *newNode = new Node();
 		newNode->xPosition = xPos;
 		newNode->yPosition = yPos;
 		newNode->nextNodeAddress = NULL;
@@ -95,7 +95,7 @@ public:
 		}
 	}
 
-	void dequeue(int& x, int& y)
+	void dequeue(int &x, int &y)
 	{
 		// It will directly put data in given variables
 		if (!(this->isEmpty()))
@@ -103,7 +103,7 @@ public:
 			x = front->xPosition;
 			y = front->yPosition;
 
-			Node* temp = front;
+			Node *temp = front;
 			front = front->nextNodeAddress;
 
 			delete temp;
@@ -130,7 +130,7 @@ public:
 	}
 
 	// Getting the front
-	void getFront(int& x, int& y)
+	void getFront(int &x, int &y)
 	{
 		// only return the node data from front of queue
 		if (!(this->isEmpty()))
@@ -151,8 +151,8 @@ public:
 	// Initializing
 	void draw()
 	{
-		//score = 0;
-		// outerbox
+		// score = 0;
+		//  outerbox
 		for (i = 0; i < width; i++)
 		{
 			frame[0][i] = '\262';
@@ -230,7 +230,7 @@ public:
 
 	void reLocate(char dir)
 	{
-		//Case for Vertical Direction
+		// Case for Vertical Direction
 		if ((dir == 72 || dir == 80) && dir1 == 0)
 		{
 			if (dir == 72)
@@ -244,7 +244,7 @@ public:
 
 			dir1 = 1;
 		}
-		else if ((dir == 75 || dir == 77) && dir1 == 1) //Case for Horizontal Direction
+		else if ((dir == 75 || dir == 77) && dir1 == 1) // Case for Horizontal Direction
 		{
 			if (dir == 75)
 			{
@@ -263,20 +263,20 @@ public:
 		enqueue(headXPosition, headYPosition);
 		frame[headYPosition][headXPosition] = body->symbol;
 
-		//For Vertical and Right
+		// For Vertical and Right
 		if (dir1 == 0 && dir2 == 0)
 		{
 			headXPosition++;
 		}
-		else if (dir1 == 0 && dir2 == 1) //For Vertical and Left
+		else if (dir1 == 0 && dir2 == 1) // For Vertical and Left
 		{
 			headXPosition--;
 		}
-		else if (dir1 == 1 && dir2 == 0) //For Horizontal and Right
+		else if (dir1 == 1 && dir2 == 0) // For Horizontal and Right
 		{
 			headYPosition--;
 		}
-		else if (dir1 == 1 && dir2 == 1) //For Horizontal and Left
+		else if (dir1 == 1 && dir2 == 1) // For Horizontal and Left
 		{
 			headYPosition++;
 		}
@@ -284,7 +284,7 @@ public:
 		// Add body if head reaches the fruit
 		if (headXPosition == fruitXPosition && headYPosition == fruitYPosition)
 		{
-			//Increasing the Scores and Adding body and Fruit
+			// Increasing the Scores and Adding body and Fruit
 			score++;
 			addBody();
 			generateFruit();
@@ -304,7 +304,7 @@ public:
 		cout << "\t\tScore : " << score << " ";
 	}
 
-	//Function to print the Boundary and Score
+	// Function to print the Boundary and Score
 	void printMap()
 	{
 		// print the frame
@@ -331,7 +331,7 @@ public:
 
 void display()
 {
-	//Creating the snake object
+	// Creating the snake object
 	Snake snake;
 	string name;
 	char get;
@@ -350,20 +350,20 @@ void display()
 	speed = 10;
 	width = 50, height = 20;
 
-	//Initializing the snake
+	// Initializing the snake
 	snake.draw();
 
-	//generateFruit()
+	// generateFruit()
 	snake.generateFruit();
 
 	do
 	{
-		//update the position of the snake
+		// update the position of the snake
 		snake.update();
 
-		if (_kbhit()) //If user presses any key
+		if (_kbhit()) // If user presses any key
 		{
-			//Changing the direction of Snake
+			// Changing the direction of Snake
 			snake.reLocate(_getch());
 		}
 	} while (game_over == false);
